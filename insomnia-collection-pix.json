@@ -1,0 +1,500 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-07-28T04:53:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_001_health_check",
+      "parentId": "fld_pix_system",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/actuator/health",
+      "name": "Health Check",
+      "description": "Verifica se a aplicação está funcionando",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519980000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_002_create_pix_key_cpf",
+      "parentId": "fld_pix_keys",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Criar Chave PIX - CPF",
+      "description": "Cria uma chave PIX do tipo CPF para a conta 12345",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"12345678901\",\n  \"type\": \"CPF\",\n  \"accountNumber\": \"12345\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519979000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_003_create_pix_key_email",
+      "parentId": "fld_pix_keys",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Criar Chave PIX - Email",
+      "description": "Cria uma chave PIX do tipo Email para a conta 67890",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"maria.santos@email.com\",\n  \"type\": \"EMAIL\",\n  \"accountNumber\": \"67890\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519978000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_004_create_pix_key_phone",
+      "parentId": "fld_pix_keys",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Criar Chave PIX - Telefone",
+      "description": "Cria uma chave PIX do tipo Telefone",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"+5511987654321\",\n  \"type\": \"PHONE\",\n  \"accountNumber\": \"12345\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519977000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_005_create_pix_key_random",
+      "parentId": "fld_pix_keys",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Criar Chave PIX - Aleatória",
+      "description": "Cria uma chave PIX do tipo Aleatória (32 caracteres)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"12345678901234567890123456789012\",\n  \"type\": \"RANDOM\",\n  \"accountNumber\": \"67890\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519976000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_006_transfer_success",
+      "parentId": "fld_transfers",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/transfer",
+      "name": "Transferência PIX - Sucesso",
+      "description": "Transferência de R$ 100,00 usando chave CPF",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sourceAccountNumber\": \"12345\",\n  \"sourceAgency\": \"0001\",\n  \"destinationPixKey\": \"maria.santos@email.com\",\n  \"amount\": 100.00,\n  \"description\": \"Transferência PIX - Teste Clean Architecture\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519975000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_007_transfer_high_value",
+      "parentId": "fld_transfers",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/transfer",
+      "name": "Transferência PIX - Alto Valor",
+      "description": "Transferência de R$ 500,00",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sourceAccountNumber\": \"12345\",\n  \"sourceAgency\": \"0001\",\n  \"destinationPixKey\": \"12345678901234567890123456789012\",\n  \"amount\": 500.00,\n  \"description\": \"Transferência de alto valor - Demo Bradesco\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519974000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_008_transfer_insufficient_funds",
+      "parentId": "fld_error_cases",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/transfer",
+      "name": "Erro - Saldo Insuficiente",
+      "description": "Tenta transferir mais do que o saldo disponível",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sourceAccountNumber\": \"67890\",\n  \"sourceAgency\": \"0001\",\n  \"destinationPixKey\": \"12345678901\",\n  \"amount\": 1000.00,\n  \"description\": \"Teste de saldo insuficiente\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519973000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_009_transfer_invalid_key",
+      "parentId": "fld_error_cases",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/transfer",
+      "name": "Erro - Chave PIX Inexistente",
+      "description": "Tenta transferir para uma chave PIX que não existe",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"sourceAccountNumber\": \"12345\",\n  \"sourceAgency\": \"0001\",\n  \"destinationPixKey\": \"chave.inexistente@email.com\",\n  \"amount\": 50.00,\n  \"description\": \"Teste de chave inexistente\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519972000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_010_create_invalid_pix_key",
+      "parentId": "fld_error_cases",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Erro - Chave PIX Inválida",
+      "description": "Tenta criar uma chave PIX com formato inválido",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"email-invalido\",\n  \"type\": \"EMAIL\",\n  \"accountNumber\": \"12345\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519971000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_011_create_duplicate_key",
+      "parentId": "fld_error_cases",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/api/pix/keys",
+      "name": "Erro - Chave PIX Duplicada",
+      "description": "Tenta criar uma chave PIX que já existe",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"key\": \"12345678901\",\n  \"type\": \"CPF\",\n  \"accountNumber\": \"67890\",\n  \"agency\": \"0001\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_content_type",
+          "name": "Content-Type",
+          "value": "application/json",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1690519970000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_012_swagger_ui",
+      "parentId": "fld_documentation",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/swagger-ui.html",
+      "name": "Swagger UI",
+      "description": "Acessa a documentação Swagger da API",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1690519969000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_013_h2_console",
+      "parentId": "fld_documentation",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "url": "{{ _.base_url }}/h2-console",
+      "name": "H2 Database Console",
+      "description": "Acessa o console do banco H2 para verificar dados",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1690519968000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_pix_system",
+      "parentId": "wrk_main",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "🏦 Sistema PIX - Clean Architecture",
+      "description": "Collection completa para testar o sistema PIX desenvolvido com Clean Architecture para apresentação no Bradesco",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1690519980000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_pix_keys",
+      "parentId": "fld_pix_system",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "🔑 Gerenciamento de Chaves PIX",
+      "description": "Endpoints para criação e gerenciamento de chaves PIX",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1690519979000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_transfers",
+      "parentId": "fld_pix_system",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "💸 Transferências PIX",
+      "description": "Endpoints para execução de transferências PIX",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1690519978000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_error_cases",
+      "parentId": "fld_pix_system",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "❌ Casos de Erro",
+      "description": "Testes de validação e tratamento de erros",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1690519977000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_documentation",
+      "parentId": "fld_pix_system",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "📚 Documentação e Ferramentas",
+      "description": "Links para Swagger, H2 Console e outras ferramentas",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1690519976000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_main",
+      "parentId": null,
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "PIX Clean Architecture - Bradesco Demo",
+      "description": "Workspace para demonstração do sistema PIX usando Clean Architecture",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_main",
+      "modified": 1690519980000,
+      "created": 1690519980000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "color": "#2e7d32",
+      "isPrivate": false,
+      "metaSortKey": 1690519980000,
+      "_type": "environment"
+    }
+  ]
+}
