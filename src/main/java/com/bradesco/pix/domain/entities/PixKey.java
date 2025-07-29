@@ -1,6 +1,7 @@
 package com.bradesco.pix.domain.entities;
 
 import com.bradesco.pix.domain.entities.enums.PixKeyType;
+import com.bradesco.pix.domain.exceptions.InvalidPixKeyException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -24,7 +25,7 @@ public class PixKey {
     public PixKey(String key, PixKeyType type, String accountNumber,
                   String agency, String ownerName) {
         if (!isValidKey(key, type)) {
-            throw new IllegalArgumentException("Invalid PIX key format for type: " + type);
+            throw new InvalidPixKeyException(type, key);
         }
 
         this.key = key;
@@ -43,41 +44,18 @@ public class PixKey {
             case EMAIL -> EMAIL_PATTERN.matcher(key).matches();
             case PHONE -> PHONE_PATTERN.matcher(key).matches();
             case CPF -> CPF_PATTERN.matcher(key).matches();
-            case RANDOM -> key.length() == 32; // UUID sem hífens
+            case RANDOM -> key.length() == 32;
         };
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public PixKeyType getType() {
-        return type;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getAgency() {
-        return agency;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void deactivate() {
-        this.active = false;
-    }
+    public String getKey() { return key; }
+    public PixKeyType getType() { return type; }
+    public String getAccountNumber() { return accountNumber; }
+    public String getAgency() { return agency; }
+    public String getOwnerName() { return ownerName; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public boolean isActive() { return active; }
+    public void deactivate() { this.active = false; }
 
     @Override
     public boolean equals(Object o) {

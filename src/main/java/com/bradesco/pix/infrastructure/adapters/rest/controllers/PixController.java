@@ -6,6 +6,7 @@ import com.bradesco.pix.domain.entities.PixKey;
 import com.bradesco.pix.domain.entities.PixTransaction;
 import com.bradesco.pix.infrastructure.adapters.rest.controllers.requests.CreatePixKeyRequest;
 import com.bradesco.pix.infrastructure.adapters.rest.controllers.requests.PixTransferRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,33 +24,25 @@ public class PixController {
     }
 
     @PostMapping("/keys")
-    public ResponseEntity<PixKey> createPixKey(@RequestBody CreatePixKeyRequest request) {
-        try {
-            PixKey pixKey = createPixKeyUseCase.execute(
-                    request.getKey(),
-                    request.getType(),
-                    request.getAccountNumber(),
-                    request.getAgency()
-            );
-            return ResponseEntity.ok(pixKey);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<PixKey> createPixKey(@Valid @RequestBody CreatePixKeyRequest request) {
+        PixKey pixKey = createPixKeyUseCase.execute(
+                request.getKey(),
+                request.getType(),
+                request.getAccountNumber(),
+                request.getAgency()
+        );
+        return ResponseEntity.ok(pixKey);
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<PixTransaction> executeTransfer(@RequestBody PixTransferRequest request) {
-        try {
-            PixTransaction transaction = executePixTransferUseCase.execute(
-                    request.getSourceAccountNumber(),
-                    request.getSourceAgency(),
-                    request.getDestinationPixKey(),
-                    request.getAmount(),
-                    request.getDescription()
-            );
-            return ResponseEntity.ok(transaction);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<PixTransaction> executeTransfer(@Valid @RequestBody PixTransferRequest request) {
+        PixTransaction transaction = executePixTransferUseCase.execute(
+                request.getSourceAccountNumber(),
+                request.getSourceAgency(),
+                request.getDestinationPixKey(),
+                request.getAmount(),
+                request.getDescription()
+        );
+        return ResponseEntity.ok(transaction);
     }
 }

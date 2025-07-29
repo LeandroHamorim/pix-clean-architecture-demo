@@ -3,6 +3,9 @@ package com.bradesco.pix.application.usecases;
 import com.bradesco.pix.domain.entities.Account;
 import com.bradesco.pix.domain.entities.PixKey;
 import com.bradesco.pix.domain.entities.PixTransaction;
+import com.bradesco.pix.domain.exceptions.BusinessRuleException;
+import com.bradesco.pix.domain.exceptions.EntityNotFoundException;
+import com.bradesco.pix.domain.exceptions.TransactionProcessingException;
 import com.bradesco.pix.domain.ports.*;
 import java.math.BigDecimal;
 
@@ -29,42 +32,68 @@ public class ExecutePixTransferUseCase {
                                   String destinationPixKey, BigDecimal amount, String description) {
 
         return transactionManager.executeInTransaction(() -> {
+            PixTransaction savedTransaction = null;
 
-            Account sourceAccount = accountRepository.findByAccountNumberAndAgency(
-                            sourceAccountNumber, sourceAgency)
-                    .orElseThrow(() -> new IllegalArgumentException("Source account not found"));
+            try {
+                Account sourceAccount = accountRepository.findByAccountNumberAndAgency(
+                                sourceAccountNumber, sourceAgency)
+                        .orElseThrow(() -> new EntityNotFoundException("Source Account",
+                                sourceAccountNumber + "-" + sourceAgency));
 
-            PixKey pixKey = pixKeyRepository.findByKey(destinationPixKey)
-                    .orElseThrow(() -> new IllegalArgumentException("PIX key not found"));
+                PixKey pixKey = pixKeyRepository.findByKey(destinationPixKey)
+                        .orElseThrow(() -> new EntityNotFoundException("PIX Key", destinationPixKey));
 
-            if (!pixKey.isActive()) {
-                throw new IllegalArgumentException("PIX key is inactive");
+                if (!pixKey.isActive()) {
+                    throw new BusinessRuleException("PIX key is inactive: " + destinationPixKey);
+                }
+
+                Account destinationAccount = accountRepository.findByAccountNumberAndAgency(
+                                pixKey.getAccountNumber(), pixKey.getAgency())
+                        .orElseThrow(() -> new EntityNotFoundException("Destination Account",
+                                pixKey.getAccountNumber() + "-" + pixKey.getAgency()));
+
+                PixTransaction transaction = new PixTransaction(
+                        sourceAccountNumber, sourceAgency,
+                        destinationPixKey, pixKey.getAccountNumber(), pixKey.getAgency(),
+                        amount, description
+                );
+
+                savedTransaction = transactionRepository.save(transaction);
+
+                sourceAccount.debit(amount);
+                destinationAccount.credit(amount);
+
+                accountRepository.update(sourceAccount);
+                accountRepository.update(destinationAccount);
+
+                savedTransaction.markAsCompleted();
+                transactionRepository.update(savedTransaction);
+
+                bacenService.notifyTransaction(savedTransaction);
+
+                return savedTransaction;
+
+            } catch (Exception e) {
+                if (savedTransaction != null) {
+                    try {
+                        savedTransaction.markAsFailed(e.getMessage());
+                        transactionRepository.update(savedTransaction);
+                    } catch (Exception updateException) {
+                        // Log but don't throw to preserve original exception
+                        System.err.println("Failed to mark transaction as failed: " + updateException.getMessage());
+                    }
+                }
+
+                if (e instanceof TransactionProcessingException) {
+                    throw e;
+                } else {
+                    throw new TransactionProcessingException(
+                            "Failed to process PIX transfer: " + e.getMessage(),
+                            savedTransaction != null ? savedTransaction.getTransactionId() : null,
+                            e
+                    );
+                }
             }
-
-            Account destinationAccount = accountRepository.findByAccountNumberAndAgency(
-                            pixKey.getAccountNumber(), pixKey.getAgency())
-                    .orElseThrow(() -> new IllegalArgumentException("Destination account not found"));
-
-            PixTransaction transaction = new PixTransaction(
-                    sourceAccountNumber, sourceAgency,
-                    destinationPixKey, pixKey.getAccountNumber(), pixKey.getAgency(),
-                    amount, description
-            );
-
-            PixTransaction savedTransaction = transactionRepository.save(transaction);
-
-            sourceAccount.debit(amount);
-            destinationAccount.credit(amount);
-
-            accountRepository.update(sourceAccount);
-            accountRepository.update(destinationAccount);
-
-            savedTransaction.markAsCompleted();
-            transactionRepository.update(savedTransaction);
-
-            bacenService.notifyTransaction(savedTransaction);
-
-            return savedTransaction;
         });
     }
 }

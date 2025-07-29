@@ -1,5 +1,7 @@
 package com.bradesco.pix.domain.entities;
 
+import com.bradesco.pix.domain.exceptions.InactiveAccountException;
+import com.bradesco.pix.domain.exceptions.InsufficientBalanceException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -42,10 +44,10 @@ public class Account {
             throw new IllegalArgumentException("Amount must be positive");
         }
         if (!active) {
-            throw new IllegalStateException("Account is inactive");
+            throw new InactiveAccountException(accountNumber, agency);
         }
         if (balance.compareTo(amount) < 0) {
-            throw new IllegalStateException("Insufficient balance");
+            throw new InsufficientBalanceException(balance, amount);
         }
         this.balance = this.balance.subtract(amount);
     }
@@ -55,46 +57,20 @@ public class Account {
             throw new IllegalArgumentException("Amount must be positive");
         }
         if (!active) {
-            throw new IllegalStateException("Account is inactive");
+            throw new InactiveAccountException(accountNumber, agency);
         }
         this.balance = this.balance.add(amount);
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getAgency() {
-        return agency;
-    }
-
-    public String getOwnerDocument() {
-        return ownerDocument;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void deactivate() {
-        this.active = false;
-    }
-
-    public void activate() {
-        this.active = true;
-    }
+    public String getAccountNumber() { return accountNumber; }
+    public String getAgency() { return agency; }
+    public String getOwnerDocument() { return ownerDocument; }
+    public String getOwnerName() { return ownerName; }
+    public BigDecimal getBalance() { return balance; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public boolean isActive() { return active; }
+    public void deactivate() { this.active = false; }
+    public void activate() { this.active = true; }
 
     @Override
     public boolean equals(Object o) {
